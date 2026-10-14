@@ -19,4 +19,4 @@ python homework_1/Q5.py
 
 Q4 prints the test results and saves three plots in `homework_1/figures/`.
 Q5 runs all four subquestions and prints Accuracy, MAE, and training losses.
-The ALE data are included. Recorded outputs are in `homework_1/results/Q4.txt` and `homework_1/results/Q5.txt`.
+The ALE data are included. Both scripts save their result tables in `homework_1/results/Q4.txt` and `homework_1/results/Q5.txt`.

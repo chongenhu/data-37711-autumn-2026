@@ -91,8 +91,11 @@ for (name, model), filename in zip(models.items(), filenames):
     plt.close(fig)
 
 summary = pd.DataFrame(rows)
-print("\nHeld-out test residuals; alpha=0.05")
-print(summary.to_string(index=False, formatters={
+result = "Held-out test residuals; alpha=0.05\n\n" + summary.to_string(index=False, formatters={
     "MAE": "{:.9f}".format, "normaltest_statistic": "{:.9f}".format,
     "p_value": "{:.9e}".format,
-}))
+})
+print("\n" + result)
+result_dir = Path(__file__).resolve().parent / "results"
+result_dir.mkdir(exist_ok=True)
+(result_dir / "Q4.txt").write_text(result + "\n", encoding="utf-8")

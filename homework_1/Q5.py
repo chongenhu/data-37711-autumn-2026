@@ -167,15 +167,18 @@ for prediction in r_predictions:
     assert prediction.ndim == 1 and prediction.shape == yrv.shape and np.isfinite(prediction).all()
 accuracies = [accuracy_score(ycv, prediction) for prediction in c_predictions]
 maes = [mean_absolute_error(yrv, prediction) for prediction in r_predictions]
-print("\nClassification:")
-print(pd.DataFrame({"Model": ["C0 sklearn LogisticRegression", "C1 Logistic + BCE + SGD", "C2 Probit + BCE + SGD"],
-                    "Test Accuracy": accuracies,
-                    "Correct / Test Samples": [f"{np.sum(p == ycv)} / {len(ycv)}" for p in c_predictions]
-                   }).to_string(index=False, float_format=lambda x: f"{x:.8f}"))
-print("\nRegression (MAE in original ale units, meters):")
-print(pd.DataFrame({"Model": ["R0 sklearn LinearRegression", "R1 Linear + SGD", "R2 Linear + SGD"],
-                    "Training Objective": ["Ordinary least squares", "MSE", "Student-t NLL (df=5, scale=1)"],
-                    "Test MAE": maes}).to_string(index=False, float_format=lambda x: f"{x:.10f}"))
+classification = pd.DataFrame({"Model": ["C0 sklearn LogisticRegression", "C1 Logistic + BCE + SGD", "C2 Probit + BCE + SGD"],
+                               "Test Accuracy": accuracies,
+                               "Correct / Test Samples": [f"{np.sum(p == ycv)} / {len(ycv)}" for p in c_predictions]
+                              }).to_string(index=False, float_format=lambda x: f"{x:.8f}")
+regression = pd.DataFrame({"Model": ["R0 sklearn LinearRegression", "R1 Linear + SGD", "R2 Linear + SGD"],
+                           "Training Objective": ["Ordinary least squares", "MSE", "Student-t NLL (df=5, scale=1)"],
+                           "Test MAE": maes}).to_string(index=False, float_format=lambda x: f"{x:.10f}")
+result = "Classification\n" + classification + "\n\nRegression (MAE in original ale units, meters)\n" + regression
+print("\n" + result)
+result_dir = Path(__file__).resolve().parent / "results"
+result_dir.mkdir(exist_ok=True)
+(result_dir / "Q5.txt").write_text(result + "\n", encoding="utf-8")
 print("finite_checks: passed")
 print("Training loss:")
 for name, losses in [("C1", C1_losses), ("C2", C2_losses), ("R1", R1_losses), ("R2", R2_losses)]:
