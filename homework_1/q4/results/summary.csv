@@ -1,0 +1,4 @@
+model,n_test,MAE,normaltest_statistic,p_value,decision_at_0.05
+LinearRegression,22,0.1953934164192887,7.2997121969864871,0.025994869210469333,Reject normality at the 5% level.
+SVR (RBF),22,0.2218356131388548,12.338414588232986,0.0020928943928183461,Reject normality at the 5% level.
+DecisionTreeRegressor,22,0.18809540585503531,1.8142472672546393,0.40368369791226544,Fail to reject normality at the 5% level.
