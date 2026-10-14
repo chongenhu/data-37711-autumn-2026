@@ -87,7 +87,7 @@ for (name, model), filename in zip(models.items(), filenames):
     ax.legend(loc="upper left", fontsize=9)
     ax.grid(alpha=0.22)
     fig.tight_layout()
-    fig.savefig(figure_dir / f"{filename}_test_residuals.png", dpi=180)
+    fig.savefig(figure_dir / f"Q4_{filename}.png", dpi=180)
     plt.close(fig)
 
 summary = pd.DataFrame(rows)

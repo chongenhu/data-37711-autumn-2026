@@ -13,10 +13,10 @@ python -m pip install numpy==2.3.3 pandas==2.3.3 scipy==1.16.2 scikit-learn==1.8
 Run from the repository root:
 
 ```sh
-python homework_1/Q4/Q4.py
-python homework_1/Q5/Q5.py
+python homework_1/Q4.py
+python homework_1/Q5.py
 ```
 
-Q4 prints the test results and saves three plots in `homework_1/Q4/figures/`.
+Q4 prints the test results and saves three plots in `homework_1/figures/`.
 Q5 runs all four subquestions and prints Accuracy, MAE, and training losses.
-The ALE data are included. Recorded outputs are in each folder's `results.txt`.
+The ALE data are included. Recorded outputs are in `homework_1/results/Q4.txt` and `homework_1/results/Q5.txt`.
