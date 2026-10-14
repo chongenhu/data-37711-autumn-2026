@@ -1,0 +1,48 @@
+Versions: {'NumPy': '2.3.3', 'pandas': '2.3.3', 'sklearn': '1.8.0', 'JAX': '0.11.2', 'jaxlib': '0.11.2', 'Optax': '0.2.8'}
+SGD configuration: {'seed': 42, 'dtype': <class 'jax.numpy.float64'>, 'learning_rate': 0.01, 'batch_size': 32, 'epochs': 1000, 'momentum': 0, 'weight_decay': 0, 'probability_clip_eps': 1e-12} ; backend: cpu ; x64: True
+test_size: 0.2 random_state: 42 classification stratify: True
+
+Original classification target_names: ['malignant' 'benign']
+Classification X/y shapes: (569, 30) (569,) ; dtypes: float64 int64
+Classification missing values: 0 0
+
+ALE source: Singh et al. (2020), UCI 844, https://doi.org/10.24432/C5ZP6R, CC BY 4.0
+ALE shape: (107, 6)
+ALE columns: ['anchor_ratio', 'trans_range', 'node_density', 'iterations', 'ale', 'sd_ale']
+ALE dtypes:
+anchor_ratio      int64
+trans_range       int64
+node_density      int64
+iterations        int64
+ale             float64
+sd_ale          float64
+ALE missing values:
+anchor_ratio    0
+trans_range     0
+node_density    0
+iterations      0
+ale             0
+sd_ale          0
+Regression features: ['anchor_ratio', 'trans_range', 'node_density', 'iterations'] ; target: ale ; sd_ale ignored
+Regression X/y shapes: (107, 4) (107,) ; original ale units: meters
+Classification train/test: 455 114 ; regression train/test: 85 22
+
+C0 actual parameters: {'C': 1.0, 'class_weight': None, 'dual': False, 'fit_intercept': True, 'intercept_scaling': 1, 'l1_ratio': 0.0, 'max_iter': 5000, 'n_jobs': None, 'penalty': 'deprecated', 'random_state': None, 'solver': 'lbfgs', 'tol': 0.0001, 'verbose': 0, 'warm_start': False}
+
+Classification:
+                        Model  Test Accuracy Correct / Test Samples
+C0 sklearn LogisticRegression     0.98245614              112 / 114
+      C1 Logistic + BCE + SGD     0.96491228              110 / 114
+        C2 Probit + BCE + SGD     0.98245614              112 / 114
+
+Regression (MAE in original ale units, meters):
+                      Model            Training Objective     Test MAE
+R0 sklearn LinearRegression        Ordinary least squares 0.1953934164
+            R1 Linear + SGD                           MSE 0.1952895388
+            R2 Linear + SGD Student-t NLL (df=5, scale=1) 0.1941257690
+finite_checks: passed
+Training loss:
+C1: final loss=0.0530181972; mean epochs 801-900=0.0543679789; mean epochs 901-1000=0.0534313778; change=-0.0009366010
+C2: final loss=0.0470742859; mean epochs 801-900=0.0480379620; mean epochs 901-1000=0.0473741053; change=-0.0006638567
+R1: final loss=0.0505850953; mean epochs 801-900=0.0505849296; mean epochs 901-1000=0.0505850241; change=+0.0000000946
+R2: final loss=0.9976618618; mean epochs 801-900=0.9976621045; mean epochs 901-1000=0.9976622109; change=+0.0000001064

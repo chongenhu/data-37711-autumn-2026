@@ -1,0 +1,17 @@
+ALE source: Singh et al. (2020), UCI 844, https://doi.org/10.24432/C5ZP6R, CC BY 4.0
+ALE shape: (107, 6)
+Columns: ['anchor_ratio', 'trans_range', 'node_density', 'iterations', 'ale', 'sd_ale']
+Missing values:
+anchor_ratio    0
+trans_range     0
+node_density    0
+iterations      0
+ale             0
+sd_ale          0
+Training/test samples: 85/22
+
+Held-out test residuals; alpha=0.05
+                model  n_test         MAE normaltest_statistic         p_value                          decision_at_0.05
+     LinearRegression      22 0.195393416          7.299712197 2.599486921e-02         Reject normality at the 5% level.
+            SVR (RBF)      22 0.221835613         12.338414588 2.092894393e-03         Reject normality at the 5% level.
+DecisionTreeRegressor      22 0.188095406          1.814247267 4.036836979e-01 Fail to reject normality at the 5% level.

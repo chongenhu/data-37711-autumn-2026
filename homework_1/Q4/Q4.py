@@ -1,5 +1,3 @@
-"""Homework 1, Q4. Run: python Q4.py. Requires numpy, pandas, scipy, sklearn, matplotlib."""
-
 from pathlib import Path
 
 import numpy as np
@@ -16,8 +14,6 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVR
 from sklearn.tree import DecisionTreeRegressor
 
-# Official UCI dataset 844: https://archive.ics.uci.edu/dataset/844
-# Singh et al. (2020), DOI 10.24432/C5ZP6R, dataset licensed CC BY 4.0.
 CSV_NAME = "mcs_ds_edited_iter_shuffled.csv"
 feature_columns = ["anchor_ratio", "trans_range", "node_density", "iterations"]
 target_column = "ale"
@@ -28,7 +24,8 @@ if not csv_path.is_file():
     raise FileNotFoundError(f"Real UCI ALE data missing: {csv_path}. No synthetic data is used.")
 df = pd.read_csv(csv_path)
 
-print("ALE shape:", df.shape, "(UCI reports 107 samples)")
+print("ALE source: Singh et al. (2020), UCI 844, https://doi.org/10.24432/C5ZP6R, CC BY 4.0")
+print("ALE shape:", df.shape)
 print("Columns:", df.columns.tolist())
 print("Missing values:\n" + df.isna().sum().to_string())
 if df.shape != (107, 6) or df.columns.tolist() != feature_columns + [target_column, "sd_ale"]:
@@ -40,7 +37,6 @@ y = df[target_column].to_numpy(dtype=float)
 if not np.isfinite(X.to_numpy()).all() or not np.isfinite(y).all():
     raise ValueError("Non-finite or missing model inputs; no imputation or row removal is performed.")
 
-# This split and the fixed model parameters are implementation choices.
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 print(f"Training/test samples: {len(y_train)}/{len(y_test)}")
 models = {
@@ -62,11 +58,11 @@ for (name, model), filename in zip(models.items(), filenames):
     prediction = np.asarray(model.predict(X_test), dtype=float)
     if y_test.ndim != 1 or prediction.ndim != 1 or prediction.shape != y_test.shape:
         raise ValueError(f"{name}: predictions and targets must be aligned one-dimensional arrays.")
-    residuals = y_test - prediction  # Signed held-out test residuals, in original ale units.
+    residuals = y_test - prediction
     if not np.isfinite(residuals).all() or residuals.size < 8 or np.var(residuals) == 0:
         raise ValueError(f"{name}: normaltest needs finite, nonconstant residuals and at least 8 values.")
     try:
-        test = stats.normaltest(residuals)  # Any SciPy warning remains visible.
+        test = stats.normaltest(residuals)
         statistic, p_value = float(test.statistic), float(test.pvalue)
         if not np.isfinite(statistic) or not np.isfinite(p_value):
             raise ValueError("normaltest returned a non-finite result")
@@ -100,13 +96,3 @@ print(summary.to_string(index=False, formatters={
     "MAE": "{:.9f}".format, "normaltest_statistic": "{:.9f}".format,
     "p_value": "{:.9e}".format,
 }))
-plot_observations = [
-    "The largest positive residual lies above the reference line, suggesting a right-tail departure.",
-    "Curvature and several large positive residuals show a right-tail departure.",
-    "The plot follows a general linear trend, with local departures and a negative extreme.",
-]
-for row, observation in zip(rows, plot_observations):
-    print(f"\n{row['model']}: {observation} p={row['p_value']:.9e}. {row['decision_at_0.05']}")
-print("\nMAE is an additional prediction-error measure, not a normality test or Q4-specified metric.")
-print("Failure to reject does not prove normality. Only 22 held-out residuals are available;")
-print("conclusions apply to this sample and split. No residuals were removed or transformed.")
