@@ -1,4 +1,0 @@
-Model,Test Accuracy,Correct / Test Samples
-C0 — sklearn LogisticRegression,0.982456140351,112 / 114
-C1 — Logistic + BCE + SGD,0.964912280702,110 / 114
-C2 — Probit + BCE + SGD,0.973684210526,111 / 114

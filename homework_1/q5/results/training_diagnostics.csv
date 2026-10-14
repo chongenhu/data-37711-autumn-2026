@@ -1,5 +1,0 @@
-model,epochs,initial_full_train_loss,final_full_train_loss,mean_loss_epochs_801_900,mean_loss_epochs_901_1000,final_full_train_gradient_norm,finite_checks,max_train_probabilities_clipped_in_an_epoch
-C1,1000,0.69314718056,0.0530684950056,0.0544230751088,0.0534897524488,0.00732101602477,passed for all batches and epochs,6
-C2,1000,0.69314718056,0.0470547439951,0.0480265573979,0.0473617974308,0.00638071622691,passed for all batches and epochs,106
-R1,1000,1.06610478821,0.0505858723681,0.0505875437139,0.0505837749791,0.00417638805061,passed for all batches and epochs,
-R2,1000,1.51608758153,0.99766234762,0.997662913285,0.997661682698,0.00163687262569,passed for all batches and epochs,

@@ -1,4 +1,0 @@
-Model,Training Objective,Test MAE
-R0 — sklearn LinearRegression,Ordinary least squares (native sklearn fit),0.195393416419
-R1 — Linear + MSE + SGD,MSE,0.195235491643
-R2 — Linear + Student-t NLL + SGD,"Student-t NLL (df=5, loc=0, scale=1)",0.19401894373
