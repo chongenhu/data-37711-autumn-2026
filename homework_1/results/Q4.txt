@@ -1,6 +1,6 @@
 Held-out test residuals; alpha=0.05
 
-                model  n_test         MAE normaltest_statistic         p_value                          decision_at_0.05
-     LinearRegression      22 0.195393416          7.299712197 2.599486921e-02         Reject normality at the 5% level.
-            SVR (RBF)      22 0.221835613         12.338414588 2.092894393e-03         Reject normality at the 5% level.
-DecisionTreeRegressor      22 0.188095406          1.814247267 4.036836979e-01 Fail to reject normality at the 5% level.
+                model  n_test normaltest_statistic         p_value                          decision_at_0.05
+     LinearRegression      22          7.299712197 2.599486921e-02         Reject normality at the 5% level.
+            SVR (RBF)      22         12.338414588 2.092894393e-03         Reject normality at the 5% level.
+DecisionTreeRegressor      22          1.814247267 4.036836979e-01 Fail to reject normality at the 5% level.
